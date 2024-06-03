@@ -7,9 +7,9 @@ import java.util.Date;
 @Data
 public class SalaryPayment {
 
-    private final Employee employee;
+    private Employee employee;
 
-    private final double salary;
+    private double salary;
 
-    private final Date paymentdate;
+    private Date paymentdate;
 }
