@@ -1,6 +1,7 @@
 package com.kosinov.employees.controller;
 
 import com.kosinov.employees.dto.EmployeeDTO;
+import com.kosinov.employees.dto.EmployeeUpdateDTO;
 import com.kosinov.employees.mapper.EmployeeMapper;
 import com.kosinov.employees.model.Employee;
 import com.kosinov.employees.repository.EmployeesRepository;
@@ -17,6 +18,8 @@ public class EmployeeController {
     private final EmployeesRepository employeesRepository;
     private final EmployeeMapper employeesMapper;
 
+    Employee findedEmployee;
+
     @PostMapping("create")
     public EmployeeDTO create(@RequestBody EmployeeDTO employeeDTO) {
         Employee employee = employeesMapper.toEntity(employeeDTO);
@@ -25,8 +28,28 @@ public class EmployeeController {
         return returnDTO;
     }
 
-    @GetMapping("/users/{tabnum}")
-    public Employee redirect(@PathVariable String tabnum) {
-        return employeesRepository.getByTabNum(tabnum);
+    @GetMapping("/find/{tabnum}")
+    public Employee find(@PathVariable String tabnum) {
+        findedEmployee = employeesRepository.getByTabNum(tabnum);
+        return findedEmployee;
+    }
+
+    @DeleteMapping("delete/{tabnum}")
+    public void delete(@PathVariable String tabnum) {
+        if (findedEmployee != null) {
+            employeesRepository.delete(findedEmployee);
+            findedEmployee = null;
+        }
+    }
+
+    @PutMapping("update")
+    public EmployeeDTO update(@RequestBody EmployeeUpdateDTO employeeUpdateDTO ) {
+        if (findedEmployee != null) {
+            employeesMapper.update(employeeUpdateDTO,findedEmployee);
+            employeesRepository.save(findedEmployee);
+            EmployeeDTO returnDTO = employeesMapper.toDto(findedEmployee);
+            return returnDTO;
+        }
+        return null;
     }
 }

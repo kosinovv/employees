@@ -15,6 +15,10 @@ public class EmployeesRepository {
         return employee;
     }
 
+    public void delete(Employee employee) {
+        employees.remove(employee);
+    }
+
     public Employee getByTabNum(String tabNum) {
         return employees.stream()
                 .filter(employee -> employee.getTabnum().equals(tabNum))

@@ -1,19 +1,23 @@
 package com.kosinov.employees.model;
 
-import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 public class Employee {
 
-    private final String tabnum; //Табельный номер
+    private String tabnum; //Табельный номер
 
-    private final String firstname; //Имя
+    private String firstname; //Имя
 
-    private final String secondname; //Отчество
+    private String secondname; //Отчество
 
-    private final String lastname; //Фамилия
+    private String lastname; //Фамилия
 
-    private final double salarysum; //Сумма оклада
+    private double salarysum; //Сумма оклада
 
-    private final String department; //Отдел
+    private String department; //Отдел
 }
