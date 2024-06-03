@@ -1,6 +1,6 @@
 package com.kosinov.employees.model;
 
-import lombok.*;
+import lombok.Data;
 
 @Data
 public class Employee {
