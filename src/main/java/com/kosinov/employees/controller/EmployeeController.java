@@ -19,8 +19,8 @@ public class EmployeeController {
         return employeeService.createEmployee(employeeDTO);
     }
 
-    @GetMapping("/find/{tabnum}")
-    public Employee find(@PathVariable String tabnum) {
+    @GetMapping("find")
+    public Employee find(@RequestParam(value="tabnum") String tabnum) {
         return employeeService.findEmployee(tabnum);
     }
 

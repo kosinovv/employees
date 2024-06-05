@@ -10,9 +10,8 @@ import java.util.Set;
 public class EmployeesRepository {
     private final Set<Employee> employees = new HashSet<>();
 
-    public Employee save(Employee employee) {
+    public void add(Employee employee) {
         employees.add(employee);
-        return employee;
     }
 
     public void delete(Employee employee) {

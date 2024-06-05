@@ -1,11 +1,11 @@
-package com.kosinov.employees.model;
+package com.kosinov.employees.dto;
 
 import lombok.Data;
 
 import java.util.Date;
 
 @Data
-public class SalaryPayment {
+public class SalaryDTO {
 
     private Date paymentdate;
 
