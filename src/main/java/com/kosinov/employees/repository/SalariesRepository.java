@@ -1,12 +1,9 @@
 package com.kosinov.employees.repository;
 
-import com.kosinov.employees.exception.EmployeeNotFound;
 import com.kosinov.employees.exception.SalaryPaymentNotFound;
-import com.kosinov.employees.model.Employee;
 import com.kosinov.employees.model.SalaryPayment;
 import org.springframework.stereotype.Repository;
 
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
