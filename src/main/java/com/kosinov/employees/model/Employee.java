@@ -5,6 +5,8 @@ import lombok.Data;
 @Data
 public class Employee {
 
+    private Integer id; //Идентификатор сотрудника
+
     private String tabnum; //Табельный номер
 
     private String firstname; //Имя

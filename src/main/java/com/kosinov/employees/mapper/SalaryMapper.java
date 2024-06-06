@@ -1,7 +1,7 @@
 package com.kosinov.employees.mapper;
 
-import com.kosinov.employees.dto.SalaryDTO;
-import com.kosinov.employees.dto.SalaryUpdateDTO;
+import com.kosinov.employees.dto.SalaryPaymentDTO;
+import com.kosinov.employees.dto.SalaryPaymentUpdateDTO;
 import com.kosinov.employees.model.SalaryPayment;
 import org.mapstruct.*;
 
@@ -11,8 +11,9 @@ import org.mapstruct.*;
         unmappedTargetPolicy = ReportingPolicy.IGNORE
 )
 public interface SalaryMapper {
-    SalaryPayment toEntity(SalaryDTO salaryDTO);
-    SalaryDTO toDto(SalaryPayment salaryPayment);
+    SalaryPayment toEntity(SalaryPaymentDTO salaryPaymentDTO);
 
-    void update(SalaryUpdateDTO updateDTO, @MappingTarget SalaryPayment salaryPayment);
+    SalaryPaymentDTO toDto(SalaryPayment salaryPayment);
+
+    void update(SalaryPaymentUpdateDTO updateDTO, @MappingTarget SalaryPayment salaryPayment);
 }

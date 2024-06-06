@@ -1,8 +1,7 @@
 package com.kosinov.employees.controller;
 
-import com.kosinov.employees.dto.SalaryDTO;
-import com.kosinov.employees.dto.SalaryUpdateDTO;
-import com.kosinov.employees.model.SalaryPayment;
+import com.kosinov.employees.dto.SalaryPaymentDTO;
+import com.kosinov.employees.dto.SalaryPaymentUpdateDTO;
 import com.kosinov.employees.service.MainService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -14,30 +13,31 @@ import java.util.Date;
 @RequiredArgsConstructor
 
 public class SalaryPaymentController {
+
     private final MainService salaryPaymentsService;
 
     @PostMapping("create")
-    public SalaryDTO create(@RequestBody SalaryDTO salaryDTO) {
-        return salaryPaymentsService.createSalary(salaryDTO);
+    public SalaryPaymentDTO create(@RequestBody SalaryPaymentDTO salaryPaymentDTO) {
+        return salaryPaymentsService.createSalary(salaryPaymentDTO);
     }
 
     @GetMapping("find")
-    public SalaryPayment find(@RequestParam(value="tabnum") String tabnum, @RequestParam(value="date") Date datesalary) {
-        return salaryPaymentsService.findSalary(tabnum, datesalary);
+    public SalaryPaymentDTO find(@RequestParam(value="id") Integer id) {
+        return salaryPaymentsService.findSalary(id);
     }
 
-    @GetMapping("getsum")
-    public Double getempsalarysum(@RequestParam(value="tabnum") String tabnum, @RequestParam(value="date", required=false) Date datesalary) {
-        return salaryPaymentsService.getEmpSalarySum(tabnum, datesalary);
+    @GetMapping("getempsalarysum")
+    public String getempsalarysum(@RequestParam(value="employeeId") Integer employeeId) {
+        return salaryPaymentsService.getEmpSalarySum(employeeId);
     }
 
     @DeleteMapping("delete")
-    public void delete() {
-        salaryPaymentsService.deleteSalary();
+    public SalaryPaymentDTO delete(@RequestParam(value="id") Integer id) {
+        return salaryPaymentsService.deleteSalary(id);
     }
 
     @PutMapping("update")
-    public SalaryDTO update(@RequestBody SalaryUpdateDTO salaryUpdateDTO ) {
-        return salaryPaymentsService.updateSalary(salaryUpdateDTO);
+    public SalaryPaymentDTO update(@RequestBody SalaryPaymentUpdateDTO salaryPaymentUpdateDTO) {
+        return salaryPaymentsService.updateSalary(salaryPaymentUpdateDTO);
     }
 }

@@ -1,5 +1,6 @@
 package com.kosinov.employees.repository;
 
+import com.kosinov.employees.exception.EmployeeNotFound;
 import com.kosinov.employees.model.Employee;
 import org.springframework.stereotype.Repository;
 
@@ -10,18 +11,24 @@ import java.util.Set;
 public class EmployeesRepository {
     private final Set<Employee> employees = new HashSet<>();
 
-    public void add(Employee employee) {
+    public Employee add(Employee employee) {
+
         employees.add(employee);
+
+        return employee;
     }
 
-    public void delete(Employee employee) {
+    public Employee delete(Employee employee) {
+
         employees.remove(employee);
+
+        return employee;
     }
 
-    public Employee getByTabNum(String tabNum) {
+    public Employee getById(Integer id) {
         return employees.stream()
-                .filter(employee -> employee.getTabnum().equals(tabNum))
+                .filter(employee -> employee.getId().equals(id))
                 .findFirst()
-                .orElse(null);
+                .orElseThrow(() -> new EmployeeNotFound(String.format("Сотрудник с идентификатором %s не найден",id)));
     }
 }

@@ -1,5 +1,8 @@
 package com.kosinov.employees.repository;
 
+import com.kosinov.employees.exception.EmployeeNotFound;
+import com.kosinov.employees.exception.SalaryPaymentNotFound;
+import com.kosinov.employees.model.Employee;
 import com.kosinov.employees.model.SalaryPayment;
 import org.springframework.stereotype.Repository;
 
@@ -11,42 +14,33 @@ import java.util.Set;
 public class SalariesRepository {
     private final Set<SalaryPayment> salaryPayments = new HashSet<>();
 
-    public void add(SalaryPayment salaryPayment) {
+    public SalaryPayment add(SalaryPayment salaryPayment) {
+
         salaryPayments.add(salaryPayment);
+
+        return salaryPayment;
     }
 
-    public void delete(SalaryPayment salaryPayment) {
+    public SalaryPayment delete(SalaryPayment salaryPayment) {
+
         salaryPayments.remove(salaryPayment);
+
+        return salaryPayment;
     }
 
-    public SalaryPayment findSalary(String tabNum, Date dateSalary) {
-        for (SalaryPayment salaryPayment : salaryPayments) {
-            if (salaryPayment.getEmployeeTabNum().equals(tabNum)) {
-                if (dateSalary != null) {
-                    if (salaryPayment.getPaymentdate().equals(dateSalary)) {
-                        return salaryPayment;
-                    }
-                } else {
-                    return null;
-                }
-            }
-        }
-
-        return null;
+    public SalaryPayment getById(Integer id) {
+        return salaryPayments.stream()
+                .filter(salaryPayment -> salaryPayment.getId().equals(id))
+                .findFirst()
+                .orElseThrow(() -> new SalaryPaymentNotFound(String.format("Платеж с идентификатором %s не найден", id)));
     }
 
-    public double getEmpSalarySum(String tabNum, Date dateSalary) {
+    public Double getEmpSalarySum(Integer employeeId) {
         double salariessum = 0;
 
         for (SalaryPayment salaryPayment : salaryPayments) {
-            if (salaryPayment.getEmployeeTabNum().equals(tabNum)) {
-                if (dateSalary != null) {
-                    if (salaryPayment.getPaymentdate().equals(dateSalary)) {
-                      salariessum = salariessum + salaryPayment.getSalary();
-                    }
-                } else {
-                    salariessum = salariessum + salaryPayment.getSalary();
-                }
+            if (salaryPayment.getEmployeeId().equals(employeeId)) {
+               salariessum = salariessum + salaryPayment.getSalarySum();
             }
         }
 

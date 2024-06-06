@@ -12,6 +12,7 @@ import org.mapstruct.*;
 )
 public interface EmployeeMapper {
     Employee toEntity(EmployeeDTO employeeDTO);
+
     EmployeeDTO toDto(Employee employee);
 
     void update(EmployeeUpdateDTO updateDTO, @MappingTarget Employee employee);
