@@ -2,7 +2,7 @@ package com.kosinov.employees.controller;
 
 import com.kosinov.employees.dto.EmployeeDTO;
 import com.kosinov.employees.dto.EmployeeUpdateDTO;
-import com.kosinov.employees.service.MainService;
+import com.kosinov.employees.service.EmployeeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 public class EmployeeController {
 
-    private final MainService employeeService;
+    private final EmployeeService employeeService;
 
     @PostMapping("create")
     public EmployeeDTO create(@RequestBody EmployeeDTO employeeDTO) {

@@ -2,7 +2,7 @@ package com.kosinov.employees.controller;
 
 import com.kosinov.employees.dto.SalaryPaymentDTO;
 import com.kosinov.employees.dto.SalaryPaymentUpdateDTO;
-import com.kosinov.employees.service.MainService;
+import com.kosinov.employees.service.SalaryPaymentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 public class SalaryPaymentController {
 
-    private final MainService salaryPaymentsService;
+    private final SalaryPaymentService salaryPaymentsService;
 
     @PostMapping("create")
     public SalaryPaymentDTO create(@RequestBody SalaryPaymentDTO salaryPaymentDTO) {

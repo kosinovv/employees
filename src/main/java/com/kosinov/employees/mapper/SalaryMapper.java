@@ -8,12 +8,13 @@ import org.mapstruct.*;
 @Mapper(
         nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE,
         componentModel = MappingConstants.ComponentModel.SPRING,
-        unmappedTargetPolicy = ReportingPolicy.IGNORE
+        unmappedTargetPolicy = ReportingPolicy.ERROR
 )
 public interface SalaryMapper {
     SalaryPayment toEntity(SalaryPaymentDTO salaryPaymentDTO);
 
     SalaryPaymentDTO toDto(SalaryPayment salaryPayment);
 
+    @Mapping(target = "employeeId", ignore = true)
     void update(SalaryPaymentUpdateDTO updateDTO, @MappingTarget SalaryPayment salaryPayment);
 }

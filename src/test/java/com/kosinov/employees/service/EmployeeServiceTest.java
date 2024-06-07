@@ -4,7 +4,6 @@ import com.kosinov.employees.dto.EmployeeDTO;
 import com.kosinov.employees.mapper.EmployeeMapperImpl;
 import com.kosinov.employees.mapper.SalaryMapperImpl;
 import com.kosinov.employees.repository.EmployeesRepository;
-import com.kosinov.employees.repository.SalariesRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -16,20 +15,17 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = {
-        MainService.class,
+        EmployeeService.class,
         EmployeeMapperImpl.class,
         SalaryMapperImpl.class})
 
 class MainServiceTest {
 
     @Autowired
-    private MainService mainService;
+    private EmployeeService employeeService;
 
     @MockBean
     private EmployeesRepository employeesRepository;
-
-    @MockBean
-    private SalariesRepository salariesRepository;
 
     private EmployeeDTO employeeDTO;
 
@@ -49,13 +45,13 @@ class MainServiceTest {
     @Test
     void createEmployee_test() {
         //Проверка работы метода добавления
-        employeeDTO = mainService.createEmployee(employeeDTO);
+        employeeDTO = employeeService.createEmployee(employeeDTO);
     }
 
     @Test
     void findEmployee_test() {
         //Проверка работы метода добавления
-        employeeDTO = mainService.findEmployee(employeeDTO.getId());
+        employeeDTO = employeeService.findEmployee(employeeDTO.getId());
     }
 
 }
