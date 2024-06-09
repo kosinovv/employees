@@ -1,9 +1,9 @@
 package com.kosinov.employees.service;
 
-import com.kosinov.employees.dto.EmployeeDTO;
 import com.kosinov.employees.dto.SalaryPaymentDTO;
 import com.kosinov.employees.dto.SalaryPaymentUpdateDTO;
 import com.kosinov.employees.mapper.SalaryMapper;
+import com.kosinov.employees.model.Employee;
 import com.kosinov.employees.model.SalaryPayment;
 import com.kosinov.employees.repository.SalariesRepository;
 import lombok.RequiredArgsConstructor;
@@ -21,11 +21,13 @@ public class SalaryPaymentService {
     private final EmployeeService employeeService;
 
     public SalaryPaymentDTO createSalary(SalaryPaymentDTO salaryPaymentDTO) {
+        Employee findedEmployee = employeeService.getEmployee(salaryPaymentDTO.getEmployeeTabNum());
         SalaryPayment salaryPayment = salaryMapper.toEntity(salaryPaymentDTO);
-        if (employeeService.findEmployee(salaryPayment.getEmployeeId()) != null) {
+        if (findedEmployee != null) {
+            salaryPayment.setEmployeeId(findedEmployee.getId());
             salariesRepository.add(salaryPayment);
         }
-        return salaryMapper.toDto(salaryPayment);
+        return salaryPaymentDTO;
     }
 
     public SalaryPaymentDTO findSalary(Integer id) {
@@ -33,18 +35,18 @@ public class SalaryPaymentService {
         return salaryMapper.toDto(findedSalary);
     }
 
-    public String getEmpSalarySum(Integer employeeId) {
-        EmployeeDTO employeeDTO = employeeService.findEmployee(employeeId);
+    public String getEmpSalarySum(String tabnum) {
+        Employee findedEmployee = employeeService.getEmployee(tabnum);
         return String.format("%s %2s %3s за весь период получил платежей на сумму %4s",
-                employeeDTO.getLastname(),
-                employeeDTO.getFirstname(),
-                employeeDTO.getSecondname(),
-                salariesRepository.getEmpSalarySum(employeeId).toString());
+                findedEmployee.getLastname(),
+                findedEmployee.getFirstname(),
+                findedEmployee.getSecondname(),
+                salariesRepository.getEmpSalarySum(findedEmployee.getId()).toString());
     }
 
     public SalaryPaymentDTO deleteSalary(Integer id) {
+        salariesRepository.delete(id);
         SalaryPayment salaryForDelete = salariesRepository.getById(id);
-        salariesRepository.delete(salaryForDelete);
         return salaryMapper.toDto(salaryForDelete);
     }
 

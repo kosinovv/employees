@@ -7,9 +7,7 @@ import java.util.Date;
 @Data
 public class SalaryPaymentDTO {
 
-    private Integer id; //Идентификатор платежа
-
-    private Integer employeeId; //Идентификатор сотрудника
+    private String employeeTabNum; //Табельный номер сотрудника
 
     private Date paymentdate; // Дата платежа
 

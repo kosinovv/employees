@@ -7,7 +7,7 @@ import lombok.Setter;
 @Setter
 public class EmployeeDTO {
 
-    private Integer id; //Идентификатор сотрудника
+//    private Integer id; //Идентификатор сотрудника
 
     private String tabnum; //Табельный номер
 
