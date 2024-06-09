@@ -6,6 +6,9 @@ import lombok.Setter;
 @Getter
 @Setter
 public class EmployeeDTO {
+
+//    private Integer id; //Идентификатор сотрудника
+
     private String tabnum; //Табельный номер
 
     private String firstname; //Имя

@@ -7,6 +7,8 @@ import lombok.Setter;
 @Setter
 public class EmployeeUpdateDTO {
 
+    private String tabnum; //Табельный номер
+
     private String firstname; //Имя
 
     private String secondname; //Отчество

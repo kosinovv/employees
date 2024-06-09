@@ -1,15 +1,13 @@
-package com.kosinov.employees.model;
+package com.kosinov.employees.dto;
 
 import lombok.Data;
 
-import java.sql.Date;
+import java.util.Date;
 
 @Data
-public class SalaryPayment {
+public class SalaryPaymentUpdateDTO {
 
     private Integer id; //Идентификатор платежа
-
-    private Integer employeeId; //Идентификатор сотрудника
 
     private Date paymentdate; // Дата платежа
 

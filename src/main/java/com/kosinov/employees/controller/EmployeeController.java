@@ -2,8 +2,7 @@ package com.kosinov.employees.controller;
 
 import com.kosinov.employees.dto.EmployeeDTO;
 import com.kosinov.employees.dto.EmployeeUpdateDTO;
-import com.kosinov.employees.model.Employee;
-import com.kosinov.employees.service.MainService;
+import com.kosinov.employees.service.EmployeeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,21 +11,22 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 
 public class EmployeeController {
-    private final MainService employeeService;
+
+    private final EmployeeService employeeService;
 
     @PostMapping("create")
     public EmployeeDTO create(@RequestBody EmployeeDTO employeeDTO) {
         return employeeService.createEmployee(employeeDTO);
     }
 
-    @GetMapping("/find/{tabnum}")
-    public Employee find(@PathVariable String tabnum) {
+    @GetMapping("find")
+    public EmployeeDTO find(@RequestParam(value="tabnum") String tabnum) {
         return employeeService.findEmployee(tabnum);
     }
 
     @DeleteMapping("delete")
-    public void delete() {
-       employeeService.deleteEmployee();
+    public EmployeeDTO delete(@RequestParam(value="tabnum") String tabnum) {
+        return employeeService.deleteEmployee(tabnum);
     }
 
     @PutMapping("update")
