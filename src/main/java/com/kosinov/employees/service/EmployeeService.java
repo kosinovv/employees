@@ -2,11 +2,15 @@ package com.kosinov.employees.service;
 
 import com.kosinov.employees.dto.EmployeeDTO;
 import com.kosinov.employees.dto.EmployeeUpdateDTO;
+import com.kosinov.employees.exception.EmployeeNotFound;
+import com.kosinov.employees.exception.SalaryPaymentNotFound;
 import com.kosinov.employees.mapper.EmployeeMapper;
 import com.kosinov.employees.model.Employee;
 import com.kosinov.employees.repository.EmployeesRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -26,7 +30,7 @@ public class EmployeeService {
     public Employee getEmployee(String tabnum) {
         return employeesRepository.getByTabNum(tabnum);
     }
-
+  
     public EmployeeDTO findEmployee(String tabnum) {
         Employee findedEmployee = employeesRepository.getByTabNum(tabnum);
         return employeesMapper.toDto(findedEmployee);
