@@ -11,10 +11,13 @@ import org.mapstruct.*;
         unmappedTargetPolicy = ReportingPolicy.ERROR
 )
 public interface EmployeeMapper {
+
+    @Mapping(target = "id", ignore = true)
     Employee toEntity(EmployeeDTO employeeDTO);
+
 
     EmployeeDTO toDto(Employee employee);
 
-    @Mapping(target = "tabnum", ignore = true)
+    @Mapping(target = "id", ignore = true)
     void update(EmployeeUpdateDTO updateDTO, @MappingTarget Employee employee);
 }

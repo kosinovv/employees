@@ -20,13 +20,13 @@ public class EmployeeController {
     }
 
     @GetMapping("find")
-    public EmployeeDTO find(@RequestParam(value="id") Integer id) {
-        return employeeService.findEmployee(id);
+    public EmployeeDTO find(@RequestParam(value="tabnum") String tabnum) {
+        return employeeService.findEmployee(tabnum);
     }
 
     @DeleteMapping("delete")
-    public EmployeeDTO delete(@RequestParam(value="id") Integer id) {
-        return employeeService.deleteEmployee(id);
+    public EmployeeDTO delete(@RequestParam(value="tabnum") String tabnum) {
+        return employeeService.deleteEmployee(tabnum);
     }
 
     @PutMapping("update")

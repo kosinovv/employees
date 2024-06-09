@@ -19,7 +19,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
         EmployeeMapperImpl.class,
         SalaryMapperImpl.class})
 
-class MainServiceTest {
+class EmployeeServiceTest {
 
     @Autowired
     private EmployeeService employeeService;
@@ -33,7 +33,6 @@ class MainServiceTest {
     @BeforeEach
     public void setupEmployee(){
         employeeDTO = new EmployeeDTO();
-        employeeDTO.setId(1);
         employeeDTO.setTabnum("1");
         employeeDTO.setFirstname("Виктор");
         employeeDTO.setSecondname("Анатольевич");
@@ -50,8 +49,8 @@ class MainServiceTest {
 
     @Test
     void findEmployee_test() {
-        //Проверка работы метода добавления
-        employeeDTO = employeeService.findEmployee(employeeDTO.getId());
+        //Проверка работы метода поиска
+        employeeDTO = employeeService.findEmployee("1");
     }
 
 }

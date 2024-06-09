@@ -26,8 +26,8 @@ public class SalaryPaymentController {
     }
 
     @GetMapping("getempsalarysum")
-    public String getempsalarysum(@RequestParam(value="employeeId") Integer employeeId) {
-        return salaryPaymentsService.getEmpSalarySum(employeeId);
+    public String getempsalarysum(@RequestParam(value="employeeTabNum") String employeeTabNum) {
+        return salaryPaymentsService.getEmpSalarySum(employeeTabNum);
     }
 
     @DeleteMapping("delete")
