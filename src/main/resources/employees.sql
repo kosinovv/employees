@@ -17,7 +17,6 @@ COMMENT ON DATABASE employees
     IS 'Пересонал и зарплатные платежи';
 
 -- Table: public.employee
-
 -- DROP TABLE IF EXISTS public.employee;
 
 CREATE TABLE IF NOT EXISTS public.employee
@@ -119,7 +118,7 @@ COMMENT ON COLUMN public.salary_payment."salarysum"
 
 CREATE INDEX IF NOT EXISTS salary_payment_date
     ON public.salary_payment USING btree
-    ("paymentDate" ASC NULLS LAST)
+    ("paymentdate" ASC NULLS LAST)
     TABLESPACE pg_default;
 
 -- SEQUENCE: public.salary_seq
