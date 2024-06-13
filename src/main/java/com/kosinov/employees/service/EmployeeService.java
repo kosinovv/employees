@@ -28,10 +28,9 @@ public class EmployeeService {
     }
 
     public Employee getEmployee(String tabnum) {
-        Employee findedEmployee = employeesRepository.getByTabNum(tabnum);
-        return findedEmployee;
+        return employeesRepository.getByTabNum(tabnum);
     }
-
+  
     public EmployeeDTO findEmployee(String tabnum) {
         Employee findedEmployee = employeesRepository.getByTabNum(tabnum);
         return employeesMapper.toDto(findedEmployee);

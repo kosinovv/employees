@@ -2,7 +2,6 @@ package com.kosinov.employees.service;
 
 import com.kosinov.employees.dto.EmployeeDTO;
 import com.kosinov.employees.mapper.EmployeeMapperImpl;
-import com.kosinov.employees.mapper.SalaryMapperImpl;
 import com.kosinov.employees.repository.EmployeesRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -16,8 +15,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = {
         EmployeeService.class,
-        EmployeeMapperImpl.class,
-        SalaryMapperImpl.class})
+        EmployeeMapperImpl.class})
 
 class EmployeeServiceTest {
 
@@ -51,6 +49,12 @@ class EmployeeServiceTest {
     void findEmployee_test() {
         //Проверка работы метода поиска
         employeeDTO = employeeService.findEmployee("1");
+    }
+
+    @Test
+    void deleleEmployee_test() {
+        //Проверка работы метода поиска
+        employeeDTO = employeeService.deleteEmployee("1");
     }
 
 }
