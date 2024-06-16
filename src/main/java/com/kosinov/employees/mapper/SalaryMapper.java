@@ -12,12 +12,12 @@ import org.mapstruct.*;
 )
 public interface SalaryMapper {
     @Mapping(target = "id", ignore = true)
-    @Mapping(target = "employeeId", ignore = true)
+    @Mapping(target = "employeeid", ignore = true)
     SalaryPayment toEntity(SalaryPaymentDTO salaryPaymentDTO);
 
-    @Mapping(target = "employeeTabNum", ignore = true)
+    @Mapping(target = "employeetabnum", ignore = true)
     SalaryPaymentDTO toDto(SalaryPayment salaryPayment);
 
-    @Mapping(target = "employeeId", ignore = true)
+    @Mapping(target = "employeeid", ignore = true)
     void update(SalaryPaymentUpdateDTO updateDTO, @MappingTarget SalaryPayment salaryPayment);
 }

@@ -2,6 +2,8 @@ package com.kosinov.employees.service;
 
 import com.kosinov.employees.dto.SalaryPaymentDTO;
 import com.kosinov.employees.dto.SalaryPaymentUpdateDTO;
+import com.kosinov.employees.exception.EmployeeNotFound;
+import com.kosinov.employees.exception.SalaryPaymentNotFound;
 import com.kosinov.employees.mapper.SalaryMapper;
 import com.kosinov.employees.model.Employee;
 import com.kosinov.employees.model.SalaryPayment;
@@ -21,17 +23,24 @@ public class SalaryPaymentService {
     private final EmployeeService employeeService;
 
     public SalaryPaymentDTO createSalary(SalaryPaymentDTO salaryPaymentDTO) {
-        Employee findedEmployee = employeeService.getEmployee(salaryPaymentDTO.getEmployeeTabNum());
-        SalaryPayment salaryPayment = salaryMapper.toEntity(salaryPaymentDTO);
+        Employee findedEmployee = employeeService.getEmployee(salaryPaymentDTO.getEmployeetabnum());
+
         if (findedEmployee != null) {
-            salaryPayment.setEmployeeId(findedEmployee.getId());
-            salariesRepository.add(salaryPayment);
+            SalaryPayment salaryPayment = new SalaryPayment(
+                    findedEmployee.getId(),
+                    salaryPaymentDTO.getPaymentdate(),
+                    salaryPaymentDTO.getSalarysum());
+
+            salariesRepository.save(salaryPayment);
         }
+
         return salaryPaymentDTO;
     }
 
     public SalaryPaymentDTO findSalary(Integer id) {
-        SalaryPayment findedSalary = salariesRepository.getById(id);
+        SalaryPayment findedSalary = salariesRepository.findById(id).orElseThrow(
+            () -> new SalaryPaymentNotFound(String.format("Платеж с идентификатором %s не найден", id)));
+
         return salaryMapper.toDto(findedSalary);
     }
 
@@ -41,17 +50,19 @@ public class SalaryPaymentService {
                 findedEmployee.getLastname(),
                 findedEmployee.getFirstname(),
                 findedEmployee.getSecondname(),
-                salariesRepository.getEmpSalarySum(findedEmployee.getId()).toString());
+                salariesRepository.getSalarySumForEmp(findedEmployee.getId()).toString());
     }
 
     public SalaryPaymentDTO deleteSalary(Integer id) {
-        salariesRepository.delete(id);
-        SalaryPayment salaryForDelete = salariesRepository.getById(id);
+        SalaryPayment salaryForDelete = salariesRepository.findById(id).orElseThrow(
+                () -> new SalaryPaymentNotFound(String.format("Платеж с идентификатором %s не найден", id)));
+        salariesRepository.deleteById(id);
         return salaryMapper.toDto(salaryForDelete);
     }
 
     public SalaryPaymentDTO updateSalary(SalaryPaymentUpdateDTO salaryPaymentUpdateDTO) {
-        SalaryPayment salaryForUpdate = salariesRepository.getById(salaryPaymentUpdateDTO.getId());
+        SalaryPayment salaryForUpdate = salariesRepository.findById(salaryPaymentUpdateDTO.getId()).orElseThrow(
+                () -> new SalaryPaymentNotFound(String.format("Платеж с идентификатором %s не найден", salaryPaymentUpdateDTO.getId())));
         salaryMapper.update(salaryPaymentUpdateDTO,salaryForUpdate);
         return salaryMapper.toDto(salaryForUpdate);
     }

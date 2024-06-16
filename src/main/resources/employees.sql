@@ -21,7 +21,7 @@ COMMENT ON DATABASE employees
 
 CREATE TABLE IF NOT EXISTS public.employee
 (
-    id integer NOT NULL DEFAULT nextval('employee_seq'::regclass),
+    id integer NOT NULL,
     tabnum character varying COLLATE pg_catalog."default" NOT NULL,
     firstname character varying COLLATE pg_catalog."default" NOT NULL,
     secondname character varying COLLATE pg_catalog."default",
@@ -82,7 +82,7 @@ COMMENT ON SEQUENCE public.employee_seq
 
 CREATE TABLE IF NOT EXISTS public.salary_payment
 (
-    id integer NOT NULL DEFAULT nextval('salary_seq'::regclass),
+    id integer NOT NULL,
     "employeeid" integer NOT NULL,
     "paymentdate" date NOT NULL,
     "salarysum" numeric(10,2) NOT NULL,

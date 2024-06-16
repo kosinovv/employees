@@ -11,5 +11,5 @@ public class SalaryPaymentUpdateDTO {
 
     private Date paymentdate; // Дата платежа
 
-    private double salarySum; // Сумма платежа
+    private double salarysum; // Сумма платежа
 }

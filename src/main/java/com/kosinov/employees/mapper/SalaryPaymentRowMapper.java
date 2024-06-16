@@ -13,9 +13,9 @@ public class SalaryPaymentRowMapper implements RowMapper<SalaryPayment> {
     public SalaryPayment mapRow(ResultSet resultSet, int rowNum) throws SQLException {
         SalaryPayment salaryPayment = new SalaryPayment();
         salaryPayment.setId(resultSet.getInt("id"));
-        salaryPayment.setEmployeeId(resultSet.getInt("employeeid"));
+        salaryPayment.setEmployeeid(resultSet.getInt("employeeid"));
         salaryPayment.setPaymentdate(resultSet.getDate("paymentdate"));
-        salaryPayment.setSalarySum(resultSet.getDouble("salarysum"));
+        salaryPayment.setSalarysum(resultSet.getDouble("salarysum"));
         return salaryPayment;
     }
 }
