@@ -2,7 +2,6 @@ package com.kosinov.employees.service;
 
 import com.kosinov.employees.dto.SalaryPaymentDTO;
 import com.kosinov.employees.dto.SalaryPaymentUpdateDTO;
-import com.kosinov.employees.exception.EmployeeNotFound;
 import com.kosinov.employees.exception.SalaryPaymentNotFound;
 import com.kosinov.employees.mapper.SalaryMapper;
 import com.kosinov.employees.model.Employee;
