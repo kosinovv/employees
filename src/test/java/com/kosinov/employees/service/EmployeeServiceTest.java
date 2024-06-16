@@ -36,12 +36,12 @@ class EmployeeServiceTest {
     @BeforeEach
     public void setupEmployee(){
         employeeDTO = new EmployeeDTO();
-        employeeDTO.setTabnum("1");
+        employeeDTO.setTabNum("1");
         employeeDTO.setFirstname("Виктор");
         employeeDTO.setSecondname("Анатольевич");
         employeeDTO.setLastname("Косинов");
         employeeDTO.setDepartment("Support");
-        employeeDTO.setSalarysum(2000);
+        employeeDTO.setSalarySum(2000);
     }    
 
     @Test

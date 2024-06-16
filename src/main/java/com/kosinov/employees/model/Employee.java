@@ -15,7 +15,7 @@ public class Employee {
     @SequenceGenerator(name = "emp_seq", sequenceName = "employee_seq", allocationSize = 1)
     private Integer id; //Идентификатор сотрудника
 
-    private String tabnum; //Табельный номер
+    private String tabNum; //Табельный номер
 
     private String firstname; //Имя
 
@@ -23,16 +23,16 @@ public class Employee {
 
     private String lastname; //Фамилия
 
-    private double salarysum; //Сумма оклада
+    private double salarySum; //Сумма оклада
 
     private String department; //Отдел
 
-    public Employee(String tabnum, String firstname, String secondname, String lastname, double salarysum, String department) {
-        this.tabnum = tabnum;
+    public Employee(String tabNum, String firstname, String secondname, String lastname, double salarySum, String department) {
+        this.tabNum = tabNum;
         this.firstname = firstname;
         this.secondname = secondname;
         this.lastname = lastname;
-        this.salarysum = salarysum;
+        this.salarySum = salarySum;
         this.department = department;
     }
 }

@@ -7,9 +7,9 @@ import java.util.Date;
 @Data
 public class SalaryPaymentDTO {
 
-    private String employeetabnum; //Табельный номер сотрудника
+    private String employeeTabNum; //Табельный номер сотрудника
 
-    private Date paymentdate; // Дата платежа
+    private Date paymentDate; // Дата платежа
 
-    private double salarysum; // Сумма платежа
+    private double salarySum; // Сумма платежа
 }

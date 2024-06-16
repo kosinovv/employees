@@ -42,11 +42,11 @@ public class SalaryPaymentTest {
     @BeforeEach
     public void setupSalaryPayment() throws ParseException {
         salaryPaymentDTO = new SalaryPaymentDTO();
-        salaryPaymentDTO.setEmployeetabnum("1");
+        salaryPaymentDTO.setEmployeeTabNum("1");
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         Date salaryDate = sdf.parse("2024-06-10");
-        salaryPaymentDTO.setPaymentdate(salaryDate);
-        salaryPaymentDTO.setSalarysum(2000.0);
+        salaryPaymentDTO.setPaymentDate(salaryDate);
+        salaryPaymentDTO.setSalarySum(2000.0);
     }
 
     @Test

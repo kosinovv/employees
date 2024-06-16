@@ -19,44 +19,37 @@ COMMENT ON DATABASE employees
 -- Table: public.employee
 -- DROP TABLE IF EXISTS public.employee;
 
-CREATE TABLE IF NOT EXISTS public.employee
+create table employee
 (
-    id integer NOT NULL,
-    tabnum character varying COLLATE pg_catalog."default" NOT NULL,
-    firstname character varying COLLATE pg_catalog."default" NOT NULL,
-    secondname character varying COLLATE pg_catalog."default",
-    lastname character varying COLLATE pg_catalog."default" NOT NULL,
-    department character varying COLLATE pg_catalog."default",
-    salary numeric(10,2) NOT NULL,
-    CONSTRAINT employees_pk PRIMARY KEY (id),
-    CONSTRAINT employees_tabnum UNIQUE (tabnum)
-)
+    id          integer        not null
+        constraint employees_pk
+            primary key,
+    "tabNum"    varchar        not null
+        constraint employees_tabnum
+            unique,
+    firstname   varchar        not null,
+    secondname  varchar,
+    lastname    varchar        not null,
+    department  varchar,
+    "salarySum" numeric(10, 2) not null
+);
 
-TABLESPACE pg_default;
+comment on table employee is 'Персонал';
 
-ALTER TABLE IF EXISTS public.employee
-    OWNER to postgres;
+comment on column employee.id is 'Идентификатор сотрудника';
 
-COMMENT ON TABLE public.employee
-    IS 'Персонал';
+comment on column employee.firstname is 'Имя';
 
-COMMENT ON COLUMN public.employee.id
-    IS 'Идентификатор сотрудника';
+comment on column employee.secondname is 'Отчество';
 
-COMMENT ON COLUMN public.employee.firstname
-    IS 'Имя';
+comment on column employee.lastname is 'Фамилия';
 
-COMMENT ON COLUMN public.employee.secondname
-    IS 'Отчество';
+comment on column employee.department is 'Подразделение';
 
-COMMENT ON COLUMN public.employee.lastname
-    IS 'Фамилия';
+comment on column employee."salarySum" is 'Оклад';
 
-COMMENT ON COLUMN public.employee.department
-    IS 'Подразделение';
-
-COMMENT ON COLUMN public.employee.salary
-    IS 'Оклад';
+alter table employee
+    owner to postgres;
 
 -- SEQUENCE: public.employee_seq
 
@@ -80,38 +73,30 @@ COMMENT ON SEQUENCE public.employee_seq
 
 -- DROP TABLE IF EXISTS public.salary_payment;
 
-CREATE TABLE IF NOT EXISTS public.salary_payment
+create table salary_payment
 (
-    id integer NOT NULL,
-    "employeeid" integer NOT NULL,
-    "paymentdate" date NOT NULL,
-    "salarysum" numeric(10,2) NOT NULL,
-    CONSTRAINT salary_payment_pk PRIMARY KEY (id),
-    CONSTRAINT salary_payment_emp FOREIGN KEY ("employeeid")
-        REFERENCES public.employee (id) MATCH SIMPLE
-        ON UPDATE NO ACTION
-        ON DELETE NO ACTION
-)
+    id            integer        not null
+        constraint salary_payment_pk
+            primary key,
+    "employeeId"  integer        not null
+        constraint salary_payment_emp
+            references employee
+            on delete cascade,
+    "salarySum"   numeric(10, 2) not null,
+    "paymentDate" date           not null
+);
 
-TABLESPACE pg_default;
+comment on table salary_payment is 'Зарплатные платежи';
 
-ALTER TABLE IF EXISTS public.salary_payment
-    OWNER to postgres;
+comment on column salary_payment.id is 'Идентификатор платежа';
 
-COMMENT ON TABLE public.salary_payment
-    IS 'Зарплатные платежи';
+comment on column salary_payment."employeeId" is 'Идентификатор сотрудника';
 
-COMMENT ON COLUMN public.salary_payment.id
-    IS 'Идентификатор платежа';
+comment on column salary_payment."salarySum" is 'Сумма платежа';
 
-COMMENT ON COLUMN public.salary_payment."employeeid"
-    IS 'Идентификатор сотрудника';
+alter table salary_payment
+    owner to postgres;
 
-COMMENT ON COLUMN public.salary_payment."paymentdate"
-    IS 'Дата платежа';
-
-COMMENT ON COLUMN public.salary_payment."salarysum"
-    IS 'Сумма платежа';
 -- Index: salary_payment_date
 
 -- DROP INDEX IF EXISTS public.salary_payment_date;

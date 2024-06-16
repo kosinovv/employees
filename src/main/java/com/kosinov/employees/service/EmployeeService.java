@@ -20,41 +20,41 @@ public class EmployeeService {
 
     public EmployeeDTO createEmployee(EmployeeDTO employeeDTO) {
         Employee employee = new Employee(
-                employeeDTO.getTabnum(),
+                employeeDTO.getTabNum(),
                 employeeDTO.getFirstname(),
                 employeeDTO.getSecondname(),
                 employeeDTO.getLastname(),
-                employeeDTO.getSalarysum(),
+                employeeDTO.getSalarySum(),
                 employeeDTO.getDepartment());
         employeesRepository.save(employee);
         return employeeDTO;
     }
 
-    public Employee getEmployee(String tabnum) {
-        return employeesRepository.findByTabnum(tabnum);
+    public Employee getEmployee(String tabNum) {
+        return employeesRepository.findByTabNum(tabNum);
     }
   
-    public EmployeeDTO findEmployee(String tabnum) {
-        Employee findedEmployee = employeesRepository.findByTabnum(tabnum);
+    public EmployeeDTO findEmployee(String tabNum) {
+        Employee findedEmployee = employeesRepository.findByTabNum(tabNum);
         if (findedEmployee == null) {
-            throw new EmployeeNotFound(String.format("Сотрудник с табельным номером %s не найден", tabnum));
+            throw new EmployeeNotFound(String.format("Сотрудник с табельным номером %s не найден", tabNum));
         }
         return employeesMapper.toDto(findedEmployee);
     }
 
-    public EmployeeDTO deleteEmployee(String tabnum) {
-        Employee employeeForDelete = employeesRepository.findByTabnum(tabnum);
+    public EmployeeDTO deleteEmployee(String tabNum) {
+        Employee employeeForDelete = employeesRepository.findByTabNum(tabNum);
         if (employeeForDelete == null) {
-            throw new EmployeeNotFound(String.format("Сотрудник с табельным номером %s не найден", tabnum));
+            throw new EmployeeNotFound(String.format("Сотрудник с табельным номером %s не найден", tabNum));
         }
         employeesRepository.deleteById(employeeForDelete.getId());
         return employeesMapper.toDto(employeeForDelete);
     }
 
     public EmployeeDTO updateEmployee(EmployeeUpdateDTO employeeUpdateDTO ) {
-        Employee employeeForUpdate = employeesRepository.findByTabnum(employeeUpdateDTO.getTabnum());
+        Employee employeeForUpdate = employeesRepository.findByTabNum(employeeUpdateDTO.getTabNum());
         if (employeeForUpdate == null) {
-            throw new EmployeeNotFound(String.format("Сотрудник с табельным номером %s не найден", employeeUpdateDTO.getTabnum()));
+            throw new EmployeeNotFound(String.format("Сотрудник с табельным номером %s не найден", employeeUpdateDTO.getTabNum()));
         }
         employeesMapper.update(employeeUpdateDTO,employeeForUpdate);
         employeesRepository.save(employeeForUpdate);

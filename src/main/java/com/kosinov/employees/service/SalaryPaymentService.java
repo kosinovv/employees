@@ -22,13 +22,13 @@ public class SalaryPaymentService {
     private final EmployeeService employeeService;
 
     public SalaryPaymentDTO createSalary(SalaryPaymentDTO salaryPaymentDTO) {
-        Employee findedEmployee = employeeService.getEmployee(salaryPaymentDTO.getEmployeetabnum());
+        Employee findedEmployee = employeeService.getEmployee(salaryPaymentDTO.getEmployeeTabNum());
 
         if (findedEmployee != null) {
             SalaryPayment salaryPayment = new SalaryPayment(
                     findedEmployee.getId(),
-                    salaryPaymentDTO.getPaymentdate(),
-                    salaryPaymentDTO.getSalarysum());
+                    salaryPaymentDTO.getPaymentDate(),
+                    salaryPaymentDTO.getSalarySum());
 
             salariesRepository.save(salaryPayment);
         }
@@ -43,8 +43,8 @@ public class SalaryPaymentService {
         return salaryMapper.toDto(findedSalary);
     }
 
-    public String getEmpSalarySum(String tabnum) {
-        Employee findedEmployee = employeeService.getEmployee(tabnum);
+    public String getEmpSalarySum(String tabNum) {
+        Employee findedEmployee = employeeService.getEmployee(tabNum);
         return String.format("%s %2s %3s за весь период получил платежей на сумму %4s",
                 findedEmployee.getLastname(),
                 findedEmployee.getFirstname(),

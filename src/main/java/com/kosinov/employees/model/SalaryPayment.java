@@ -17,15 +17,15 @@ public class SalaryPayment {
     @SequenceGenerator(name = "sal_seq", sequenceName = "salary_seq", allocationSize = 1)
     private Integer id; //Идентификатор платежа
 
-    private Integer employeeid; //Идентификатор сотрудника
+    private Integer employeeId; //Идентификатор сотрудника
 
-    private Date paymentdate; // Дата платежа
+    private Date paymentDate; // Дата платежа
 
-    private double salarysum; // Сумма платежа
+    private double salarySum; // Сумма платежа
 
-    public SalaryPayment(Integer employeeid, Date paymentdate, double salarysum) {
-        this.employeeid = employeeid;
-        this.paymentdate = paymentdate;
-        this.salarysum = salarysum;
+    public SalaryPayment(Integer employeeId, Date paymentDate, double salarySum) {
+        this.employeeId = employeeId;
+        this.paymentDate = paymentDate;
+        this.salarySum = salarySum;
     }
 }

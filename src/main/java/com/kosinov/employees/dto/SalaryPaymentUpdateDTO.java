@@ -9,7 +9,7 @@ public class SalaryPaymentUpdateDTO {
 
     private Integer id; //Идентификатор платежа
 
-    private Date paymentdate; // Дата платежа
+    private Date paymentDate; // Дата платежа
 
-    private double salarysum; // Сумма платежа
+    private double salarySum; // Сумма платежа
 }
