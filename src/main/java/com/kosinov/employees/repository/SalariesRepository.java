@@ -6,9 +6,12 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface SalariesRepository extends JpaRepository<SalaryPayment, Integer> {
     @Query(
-            value = "SELECT SUM(salarySum) FROM salary_payment WHERE employeeId = ?1",
-            nativeQuery = true
+            value = "select e.lastname||' '||e.firstname||' '||e.secondname||" +
+                    "' за весь период получил платежей на сумму '||SUM(s.salarySum) " +
+                    "from SalaryPayment s " +
+                    "join Employee e on e.id = s.employeeId and e.tabNum = :tabNum " +
+                    "group by e.lastname, e.firstname, e.secondname"
     )
-    Double getSalarySumForEmp(Integer employeeId);
+    String getSalarySumForEmp(String tabNum);
 
 }

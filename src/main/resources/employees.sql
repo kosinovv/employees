@@ -21,17 +21,17 @@ COMMENT ON DATABASE employees
 
 create table employee
 (
-    id          integer        not null
+    id         integer        not null
         constraint employees_pk
             primary key,
-    "tabNum"    varchar        not null
+    tab_num    varchar        not null
         constraint employees_tabnum
             unique,
-    firstname   varchar        not null,
-    secondname  varchar,
-    lastname    varchar        not null,
-    department  varchar,
-    "salarySum" numeric(10, 2) not null
+    firstname  varchar        not null,
+    secondname varchar,
+    lastname   varchar        not null,
+    department varchar,
+    salary_sum numeric(10, 2) not null
 );
 
 comment on table employee is 'Персонал';
@@ -46,7 +46,7 @@ comment on column employee.lastname is 'Фамилия';
 
 comment on column employee.department is 'Подразделение';
 
-comment on column employee."salarySum" is 'Оклад';
+comment on column employee.salary_sum is 'Оклад';
 
 alter table employee
     owner to postgres;
@@ -75,24 +75,24 @@ COMMENT ON SEQUENCE public.employee_seq
 
 create table salary_payment
 (
-    id            integer        not null
+    id           integer        not null
         constraint salary_payment_pk
             primary key,
-    "employeeId"  integer        not null
+    employee_id  integer        not null
         constraint salary_payment_emp
             references employee
             on delete cascade,
-    "salarySum"   numeric(10, 2) not null,
-    "paymentDate" date           not null
+    salary_sum   numeric(10, 2) not null,
+    payment_date date           not null
 );
 
 comment on table salary_payment is 'Зарплатные платежи';
 
 comment on column salary_payment.id is 'Идентификатор платежа';
 
-comment on column salary_payment."employeeId" is 'Идентификатор сотрудника';
+comment on column salary_payment.employee_id is 'Идентификатор сотрудника';
 
-comment on column salary_payment."salarySum" is 'Сумма платежа';
+comment on column salary_payment.salary_sum is 'Сумма платежа';
 
 alter table salary_payment
     owner to postgres;
@@ -103,7 +103,7 @@ alter table salary_payment
 
 CREATE INDEX IF NOT EXISTS salary_payment_date
     ON salary_payment USING btree
-    ("paymentDate" ASC NULLS LAST)
+    ("payment_date" ASC NULLS LAST)
     TABLESPACE pg_default;
 
 -- SEQUENCE: public.salary_seq

@@ -17,10 +17,13 @@ public class SalaryPayment {
     @SequenceGenerator(name = "sal_seq", sequenceName = "salary_seq", allocationSize = 1)
     private Integer id; //Идентификатор платежа
 
+    @Column(name = "employee_id", nullable = false)
     private Integer employeeId; //Идентификатор сотрудника
 
+    @Column(name = "payment_date", nullable = false)
     private Date paymentDate; // Дата платежа
 
+    @Column(name = "salary_sum", nullable = false)
     private double salarySum; // Сумма платежа
 
     public SalaryPayment(Integer employeeId, Date paymentDate, double salarySum) {

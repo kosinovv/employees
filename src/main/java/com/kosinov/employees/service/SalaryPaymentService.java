@@ -44,12 +44,7 @@ public class SalaryPaymentService {
     }
 
     public String getEmpSalarySum(String tabNum) {
-        Employee findedEmployee = employeeService.getEmployee(tabNum);
-        return String.format("%s %2s %3s за весь период получил платежей на сумму %4s",
-                findedEmployee.getLastname(),
-                findedEmployee.getFirstname(),
-                findedEmployee.getSecondname(),
-                salariesRepository.getSalarySumForEmp(findedEmployee.getId()).toString());
+        return salariesRepository.getSalarySumForEmp(tabNum);
     }
 
     public SalaryPaymentDTO deleteSalary(Integer id) {
