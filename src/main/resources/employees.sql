@@ -102,8 +102,8 @@ alter table salary_payment
 -- DROP INDEX IF EXISTS public.salary_payment_date;
 
 CREATE INDEX IF NOT EXISTS salary_payment_date
-    ON public.salary_payment USING btree
-    ("paymentdate" ASC NULLS LAST)
+    ON salary_payment USING btree
+    ("paymentDate" ASC NULLS LAST)
     TABLESPACE pg_default;
 
 -- SEQUENCE: public.salary_seq
