@@ -39,7 +39,6 @@ public class SalaryPaymentService {
     public SalaryPaymentDTO findSalary(Integer id) {
         SalaryPayment findedSalary = salariesRepository.findById(id).orElseThrow(
             () -> new SalaryPaymentNotFound(String.format("Платеж с идентификатором %s не найден", id)));
-
         return salaryMapper.toDto(findedSalary);
     }
 
@@ -58,6 +57,7 @@ public class SalaryPaymentService {
         SalaryPayment salaryForUpdate = salariesRepository.findById(salaryPaymentUpdateDTO.getId()).orElseThrow(
                 () -> new SalaryPaymentNotFound(String.format("Платеж с идентификатором %s не найден", salaryPaymentUpdateDTO.getId())));
         salaryMapper.update(salaryPaymentUpdateDTO,salaryForUpdate);
+        salariesRepository.save(salaryForUpdate);
         return salaryMapper.toDto(salaryForUpdate);
     }
 

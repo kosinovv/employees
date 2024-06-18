@@ -12,9 +12,10 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import java.text.ParseException;
+import java.text.ParseException
+        ;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.sql.Date;
 
 
 @ExtendWith(SpringExtension.class)
@@ -44,7 +45,8 @@ public class SalaryPaymentTest {
         salaryPaymentDTO = new SalaryPaymentDTO();
         salaryPaymentDTO.setEmployeeTabNum("1");
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        Date salaryDate = sdf.parse("2024-06-10");
+        java.util.Date tmpDate = sdf.parse("2024-06-10");
+        Date salaryDate = new Date(tmpDate.getTime());
         salaryPaymentDTO.setPaymentDate(salaryDate);
         salaryPaymentDTO.setSalarySum(2000.0);
     }
