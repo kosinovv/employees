@@ -6,6 +6,7 @@ import com.kosinov.employees.dto.SalaryPaymentUpdateDTO;
 import com.kosinov.employees.mapper.SalaryPaymentMapper;
 import com.kosinov.employees.mapper.SalaryPaymentMapperImpl;
 import com.kosinov.employees.model.Employee;
+import com.kosinov.employees.model.SalaryPayment;
 import com.kosinov.employees.repository.SalariesRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -22,6 +23,7 @@ import java.text.ParseException
         ;
 import java.text.SimpleDateFormat;
 import java.sql.Date;
+import java.util.Optional;
 
 
 @ExtendWith(SpringExtension.class)
@@ -54,6 +56,9 @@ public class SalaryPaymentTest {
 
     @MockBean
     private Employee employee;
+
+    @MockBean
+    private SalaryPayment salaryPayment;
 
     @BeforeEach
     public void setupSalaryPayment() throws ParseException {
@@ -91,6 +96,9 @@ public class SalaryPaymentTest {
 
     @Test
     void findSalaryPayment_test() {
+        //Подготовка
+        when(salariesRepository.findById(salaryPaymentFullDTO.getId())).thenReturn(Optional.ofNullable(salaryPayment));
+
         //Проверка работы метода поиска
         salaryPaymentService.findSalary(salaryPaymentFullDTO.getId());
 
@@ -100,6 +108,9 @@ public class SalaryPaymentTest {
 
     @Test
     void updateSalaryPayment_test() {
+        //Подготовка
+        when(salariesRepository.findById(salaryPaymentFullDTO.getId())).thenReturn(Optional.ofNullable(salaryPayment));
+
         //Проверка работы метода удаления
         salaryPaymentService.updateSalary(salaryPaymentUpdateDTO);
 
@@ -110,6 +121,9 @@ public class SalaryPaymentTest {
 
     @Test
     void deleleSalaryPayment_test() {
+        //Подготовка
+        when(salariesRepository.findById(salaryPaymentFullDTO.getId())).thenReturn(Optional.ofNullable(salaryPayment));
+
         //Проверка работы метода удаления
         salaryPaymentService.deleteSalary(salaryPaymentFullDTO.getId());
 
