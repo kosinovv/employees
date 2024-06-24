@@ -14,7 +14,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 
 @ExtendWith(SpringExtension.class)
@@ -70,6 +70,9 @@ class EmployeeServiceTest {
 
     @Test
     void findEmployee_test() {
+        //Подготовка
+        when(employeesRepository.findByTabNum(employeeDTO.getTabNum())).thenReturn(employee);
+
         //Проверка работы метода поиска
         employeeDTO = employeeService.findEmployee(employeeDTO.getTabNum());
 
@@ -79,6 +82,9 @@ class EmployeeServiceTest {
 
     @Test
     void deleleEmployee_test() {
+        //Подготовка
+        when(employeesRepository.findByTabNum(employeeDTO.getTabNum())).thenReturn(employee);
+
         //Проверка работы метода поиска
         employeeDTO = employeeService.deleteEmployee(employeeDTO.getTabNum());
 
@@ -88,6 +94,9 @@ class EmployeeServiceTest {
 
     @Test
     void updateEmployee_test() {
+        //Подготовка
+        when(employeesRepository.findByTabNum(employeeDTO.getTabNum())).thenReturn(employee);
+
         //Проверка работы метода удаления
         employeeService.updateEmployee(employeeUpdateDTO);
 
