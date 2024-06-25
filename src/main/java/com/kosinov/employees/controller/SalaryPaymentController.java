@@ -1,6 +1,7 @@
 package com.kosinov.employees.controller;
 
 import com.kosinov.employees.dto.SalaryPaymentDTO;
+import com.kosinov.employees.dto.SalaryPaymentFullDTO;
 import com.kosinov.employees.dto.SalaryPaymentUpdateDTO;
 import com.kosinov.employees.service.SalaryPaymentService;
 import lombok.RequiredArgsConstructor;
@@ -16,12 +17,12 @@ public class SalaryPaymentController {
     private final SalaryPaymentService salaryPaymentsService;
 
     @PostMapping("create")
-    public SalaryPaymentDTO create(@RequestBody SalaryPaymentDTO salaryPaymentDTO) {
+    public SalaryPaymentFullDTO create(@RequestBody SalaryPaymentDTO salaryPaymentDTO) {
         return salaryPaymentsService.createSalary(salaryPaymentDTO);
     }
 
     @GetMapping("find")
-    public SalaryPaymentDTO find(@RequestParam(value="id") Integer id) {
+    public SalaryPaymentFullDTO find(@RequestParam(value="id") Integer id) {
         return salaryPaymentsService.findSalary(id);
     }
 
@@ -31,12 +32,12 @@ public class SalaryPaymentController {
     }
 
     @DeleteMapping("delete")
-    public SalaryPaymentDTO delete(@RequestParam(value="id") Integer id) {
+    public SalaryPaymentFullDTO delete(@RequestParam(value="id") Integer id) {
         return salaryPaymentsService.deleteSalary(id);
     }
 
     @PutMapping("update")
-    public SalaryPaymentDTO update(@RequestBody SalaryPaymentUpdateDTO salaryPaymentUpdateDTO) {
+    public SalaryPaymentFullDTO update(@RequestBody SalaryPaymentUpdateDTO salaryPaymentUpdateDTO) {
         return salaryPaymentsService.updateSalary(salaryPaymentUpdateDTO);
     }
 }

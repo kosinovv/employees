@@ -1,25 +1,4 @@
--- Database: employees
-
--- DROP DATABASE IF EXISTS employees;
-
-CREATE DATABASE employees
-    WITH
-    OWNER = postgres
-    ENCODING = 'UTF8'
-    LC_COLLATE = 'Russian_Russia.1251'
-    LC_CTYPE = 'Russian_Russia.1251'
-    LOCALE_PROVIDER = 'libc'
-    TABLESPACE = pg_default
-    CONNECTION LIMIT = -1
-    IS_TEMPLATE = False;
-
-COMMENT ON DATABASE employees
-    IS 'Пересонал и зарплатные платежи';
-
--- Table: public.employee
--- DROP TABLE IF EXISTS public.employee;
-
-create table employee
+create table if not exists employee
 (
     id         integer        not null
         constraint employees_pk
@@ -51,10 +30,6 @@ comment on column employee.salary_sum is 'Оклад';
 alter table employee
     owner to postgres;
 
--- SEQUENCE: public.employee_seq
-
--- DROP SEQUENCE IF EXISTS public.employee_seq;
-
 CREATE SEQUENCE IF NOT EXISTS public.employee_seq
     INCREMENT 1
     START 1
@@ -68,12 +43,7 @@ ALTER SEQUENCE public.employee_seq
 COMMENT ON SEQUENCE public.employee_seq
     IS 'Сиквенс для таблицы персонала';
 
-
--- Table: public.salary_payment
-
--- DROP TABLE IF EXISTS public.salary_payment;
-
-create table salary_payment
+create table if not exists salary_payment
 (
     id           integer        not null
         constraint salary_payment_pk
@@ -97,18 +67,10 @@ comment on column salary_payment.salary_sum is 'Сумма платежа';
 alter table salary_payment
     owner to postgres;
 
--- Index: salary_payment_date
-
--- DROP INDEX IF EXISTS public.salary_payment_date;
-
 CREATE INDEX IF NOT EXISTS salary_payment_date
     ON salary_payment USING btree
-    ("payment_date" ASC NULLS LAST)
+        ("payment_date" ASC NULLS LAST)
     TABLESPACE pg_default;
-
--- SEQUENCE: public.salary_seq
-
--- DROP SEQUENCE IF EXISTS public.salary_seq;
 
 CREATE SEQUENCE IF NOT EXISTS public.salary_seq
     INCREMENT 1
@@ -119,3 +81,12 @@ CREATE SEQUENCE IF NOT EXISTS public.salary_seq
 
 ALTER SEQUENCE public.salary_seq
     OWNER TO postgres;
+
+create index if not exists salary_payment_empid_idx
+    on public.salary_payment (employee_id);
+
+alter table public.employee
+    alter column salary_sum type float8 using salary_sum::float8;
+
+alter table public.salary_payment
+    alter column salary_sum type float8 using salary_sum::float8;

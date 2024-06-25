@@ -9,7 +9,7 @@ public class EmployeeDTO {
 
 //    private Integer id; //Идентификатор сотрудника
 
-    private String tabnum; //Табельный номер
+    private String tabNum; //Табельный номер
 
     private String firstname; //Имя
 
@@ -17,7 +17,7 @@ public class EmployeeDTO {
 
     private String lastname; //Фамилия
 
-    private double salarysum; //Сумма оклада
+    private double salarySum; //Сумма оклада
 
     private String department; //Отдел
 }
