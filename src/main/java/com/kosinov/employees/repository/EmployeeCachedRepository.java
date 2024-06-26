@@ -18,8 +18,8 @@ public class EmployeeCachedRepository {
     private final RedisTemplate<String, String> redisTemplate;
     private final ObjectMapper objectMapper = new ObjectMapper();
 
-    public Optional<Employee> findByTabNum(String tabNun) {
-        String stringValue = redisTemplate.opsForValue().get(String.valueOf(tabNun));
+    public Optional<Employee> findByTabNum(String tabNum) {
+        String stringValue = redisTemplate.opsForValue().get(tabNum+"_emp");
 
         if (stringValue == null) {
             return Optional.empty();
@@ -34,7 +34,7 @@ public class EmployeeCachedRepository {
 
     public Employee save(Employee employee) {
         try {
-            redisTemplate.opsForValue().set(String.valueOf(employee.getId()), objectMapper.writeValueAsString(employee));
+            redisTemplate.opsForValue().set(employee.getTabNum()+"_emp", objectMapper.writeValueAsString(employee));
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
