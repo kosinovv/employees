@@ -9,8 +9,11 @@ import com.kosinov.employees.mapper.SalaryPaymentMapper;
 import com.kosinov.employees.model.Employee;
 import com.kosinov.employees.model.SalaryPayment;
 import com.kosinov.employees.repository.SalariesRepository;
+import com.kosinov.employees.repository.SalaryCachedRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -18,6 +21,7 @@ public class SalaryPaymentService {
 
     //Сервис платежей
     private final SalariesRepository salariesRepository;
+    private final SalaryCachedRepository salaryCachedRepository;
     private final SalaryPaymentMapper salaryPaymentMapper;
 
     //Сервис персонала
@@ -40,9 +44,7 @@ public class SalaryPaymentService {
     }
 
     public SalaryPaymentFullDTO findSalary(Integer id) {
-        SalaryPayment findedSalary = salariesRepository.findById(id).orElseThrow(
-            () -> new SalaryPaymentNotFound(String.format("Платеж с идентификатором %s не найден", id)));
-        return salaryPaymentMapper.toFullDto(findedSalary);
+        return salaryPaymentMapper.toFullDto(findInCacheOrDbByTabNum(id));
     }
 
     public String getEmpSalarySum(String tabNum) {
@@ -50,18 +52,29 @@ public class SalaryPaymentService {
     }
 
     public SalaryPaymentFullDTO deleteSalary(Integer id) {
-        SalaryPayment salaryForDelete = salariesRepository.findById(id).orElseThrow(
-                () -> new SalaryPaymentNotFound(String.format("Платеж с идентификатором %s не найден", id)));
-        salariesRepository.deleteById(id);
+        SalaryPayment salaryForDelete = findInCacheOrDbByTabNum(id);
+        salariesRepository.deleteById(salaryForDelete.getId());
         return salaryPaymentMapper.toFullDto(salaryForDelete);
     }
 
     public SalaryPaymentFullDTO updateSalary(SalaryPaymentUpdateDTO salaryPaymentUpdateDTO) {
-        SalaryPayment salaryForUpdate = salariesRepository.findById(salaryPaymentUpdateDTO.getId()).orElseThrow(
-                () -> new SalaryPaymentNotFound(String.format("Платеж с идентификатором %s не найден", salaryPaymentUpdateDTO.getId())));
+        SalaryPayment salaryForUpdate = findInCacheOrDbByTabNum(salaryPaymentUpdateDTO.getId());
         salaryPaymentMapper.update(salaryPaymentUpdateDTO,salaryForUpdate);
         salariesRepository.save(salaryForUpdate);
         return salaryPaymentMapper.toFullDto(salaryForUpdate);
     }
 
+    private SalaryPayment findInCacheOrDbByTabNum(Integer id) {
+        Optional<SalaryPayment> salaryPaymentFromCache = salaryCachedRepository.findById(id);
+
+        if (salaryPaymentFromCache.isPresent()) {
+            return salaryPaymentFromCache.get();
+        }
+
+        SalaryPayment salaryPaymentFromDb = salariesRepository.findById(id)
+            .orElseThrow(() -> new SalaryPaymentNotFound(String.format("Платеж с идентификатором %s не найден", id)));
+
+        salaryCachedRepository.save(salaryPaymentFromDb);
+        return salaryPaymentFromDb;
+    }
 }

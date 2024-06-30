@@ -8,6 +8,7 @@ import com.kosinov.employees.mapper.SalaryPaymentMapperImpl;
 import com.kosinov.employees.model.Employee;
 import com.kosinov.employees.model.SalaryPayment;
 import com.kosinov.employees.repository.SalariesRepository;
+import com.kosinov.employees.repository.SalaryCachedRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -15,7 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 import static org.mockito.ArgumentMatchers.any;
 
@@ -38,6 +38,9 @@ public class SalaryPaymentTest {
 
     @MockBean
     private SalariesRepository salariesRepository;
+
+    @MockBean
+    private SalaryCachedRepository salaryCachedRepository;
 
     @MockBean
     private EmployeeService employeeService;
@@ -97,38 +100,38 @@ public class SalaryPaymentTest {
     @Test
     void findSalaryPayment_test() {
         //Подготовка
-        when(salariesRepository.findById(salaryPaymentFullDTO.getId())).thenReturn(Optional.ofNullable(salaryPayment));
+        when(salaryCachedRepository.findById(salaryPaymentFullDTO.getId())).thenReturn(Optional.ofNullable(salaryPayment));
 
         //Проверка работы метода поиска
         salaryPaymentService.findSalary(salaryPaymentFullDTO.getId());
 
         //Проверка результата
-        verify(salariesRepository).findById(salaryPaymentFullDTO.getId());
+        verify(salaryCachedRepository).findById(salaryPaymentFullDTO.getId());
     }
 
     @Test
     void updateSalaryPayment_test() {
         //Подготовка
-        when(salariesRepository.findById(salaryPaymentFullDTO.getId())).thenReturn(Optional.ofNullable(salaryPayment));
+        when(salaryCachedRepository.findById(salaryPaymentFullDTO.getId())).thenReturn(Optional.ofNullable(salaryPayment));
 
         //Проверка работы метода удаления
         salaryPaymentService.updateSalary(salaryPaymentUpdateDTO);
 
         //Проверка результата
-        verify(salariesRepository).findById(salaryPaymentUpdateDTO.getId());
+        verify(salaryCachedRepository).findById(salaryPaymentUpdateDTO.getId());
         verify(salariesRepository).save(any());
     }
 
     @Test
     void deleleSalaryPayment_test() {
         //Подготовка
-        when(salariesRepository.findById(salaryPaymentFullDTO.getId())).thenReturn(Optional.ofNullable(salaryPayment));
+        when(salaryCachedRepository.findById(salaryPaymentFullDTO.getId())).thenReturn(Optional.ofNullable(salaryPayment));
 
         //Проверка работы метода удаления
         salaryPaymentService.deleteSalary(salaryPaymentFullDTO.getId());
 
         //Проверка результата
-        verify(salariesRepository).findById(salaryPaymentFullDTO.getId());
-        verify(salariesRepository).deleteById(salaryPaymentFullDTO.getId());
+        verify(salaryCachedRepository).findById(salaryPaymentUpdateDTO.getId());
+        verify(salariesRepository).deleteById(any());
     }
 }

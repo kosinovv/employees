@@ -4,6 +4,7 @@ import com.kosinov.employees.dto.EmployeeDTO;
 import com.kosinov.employees.dto.EmployeeUpdateDTO;
 import com.kosinov.employees.mapper.EmployeeMapperImpl;
 import com.kosinov.employees.model.Employee;
+import com.kosinov.employees.repository.EmployeeCachedRepository;
 import com.kosinov.employees.repository.EmployeesRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -12,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+
+import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
@@ -29,6 +32,9 @@ class EmployeeServiceTest {
 
     @MockBean
     private EmployeesRepository employeesRepository;
+
+    @MockBean
+    private EmployeeCachedRepository employeeCachedRepository;
 
     @MockBean
     private EmployeeDTO employeeDTO;
@@ -71,37 +77,39 @@ class EmployeeServiceTest {
     @Test
     void findEmployee_test() {
         //Подготовка
-        when(employeesRepository.findByTabNum(employeeDTO.getTabNum())).thenReturn(employee);
+        when(employeeCachedRepository.findByTabNum(employeeDTO.getTabNum())).thenReturn(Optional.ofNullable(employee));
 
         //Проверка работы метода поиска
         employeeDTO = employeeService.findEmployee(employeeDTO.getTabNum());
 
         //Проверка результата
-        verify(employeesRepository).findByTabNum(any());
+        verify(employeeCachedRepository).findByTabNum(any());
+        verify(employeeCachedRepository).findByTabNum(any());
     }
 
     @Test
     void deleleEmployee_test() {
         //Подготовка
-        when(employeesRepository.findByTabNum(employeeDTO.getTabNum())).thenReturn(employee);
+        when(employeeCachedRepository.findByTabNum(employeeDTO.getTabNum())).thenReturn(Optional.ofNullable(employee));
 
         //Проверка работы метода поиска
         employeeDTO = employeeService.deleteEmployee(employeeDTO.getTabNum());
 
         //Проверка результата
+        verify(employeeCachedRepository).findByTabNum(any());
         verify(employeesRepository).deleteById(any());
     }
 
     @Test
     void updateEmployee_test() {
         //Подготовка
-        when(employeesRepository.findByTabNum(employeeDTO.getTabNum())).thenReturn(employee);
+        when(employeeCachedRepository.findByTabNum(employeeDTO.getTabNum())).thenReturn(Optional.ofNullable(employee));
 
         //Проверка работы метода удаления
         employeeService.updateEmployee(employeeUpdateDTO);
 
         //Проверка результата
-        verify(employeesRepository).findByTabNum(employeeUpdateDTO.getTabNum());
+        verify(employeeCachedRepository).findByTabNum(any());
         verify(employeesRepository).save(any());
     }
 
