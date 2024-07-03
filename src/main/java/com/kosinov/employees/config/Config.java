@@ -5,6 +5,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.serializer.StringRedisSerializer;
+
 
 import javax.sql.DataSource;
 
@@ -17,10 +21,10 @@ public class Config {
     private final String password;
 
     public Config(
-            @Value("${database.driver}") String driver,
-            @Value("${database.url}") String url,
-            @Value("${database.username}") String username,
-            @Value("${database.password}") String password
+            @Value("${spring.datasource.driver-class-name}") String driver,
+            @Value("${spring.datasource.url}") String url,
+            @Value("${spring.datasource.username}") String username,
+            @Value("${spring.datasource.password}") String password
     ) {
         this.driver = driver;
         this.url = url;
@@ -41,5 +45,20 @@ public class Config {
     @Bean
     public JdbcTemplate getJdbcTemplate() {
         return new JdbcTemplate(getDataSource());
+    }
+
+    @Bean
+    JedisConnectionFactory jedisConnectionFactory() {
+        return new JedisConnectionFactory();
+    }
+
+    @Bean
+    public RedisTemplate<String, String> redisTemplate() {
+        RedisTemplate<String, String> template = new RedisTemplate<>();
+        template.setConnectionFactory(jedisConnectionFactory());
+        template.setKeySerializer(new StringRedisSerializer());
+        template.setValueSerializer(new StringRedisSerializer());
+        template.setEnableDefaultSerializer(false);
+        return template;
     }
 }
