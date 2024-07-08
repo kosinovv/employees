@@ -1,5 +1,6 @@
 package com.kosinov.employees.config;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,29 +15,30 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 import javax.sql.DataSource;
 
 @Configuration
+@Slf4j
 public class Config {
 
     private final String driver;
     private final String url;
     private final String username;
     private final String password;
-    private final String redishost;
-    private final int redisport;
+    private final String redis_host;
+    private final int redis_port;
 
     public Config(
             @Value("${spring.datasource.driver-class-name}") String driver,
             @Value("${spring.datasource.url}") String url,
             @Value("${spring.datasource.username}") String username,
             @Value("${spring.datasource.password}") String password,
-            @Value("${spring.data.redis.host}") String redis_host,
-            @Value("${spring.data.redis.port}") int redis_port
+            @Value("${spring.data.redis.host}") String redishost,
+            @Value("${spring.data.redis.port}") int redisport
     ) {
         this.driver = driver;
         this.url = url;
         this.username = username;
         this.password = password;
-        this.redishost = redis_host;
-        this.redisport = redis_port;
+        this.redis_host = redishost;
+        this.redis_port = redisport;
     }
 
     @Bean
@@ -57,8 +59,9 @@ public class Config {
     @Bean
     public RedisStandaloneConfiguration redisStandaloneConfiguration() {
         RedisStandaloneConfiguration config = new RedisStandaloneConfiguration();
-        config.setHostName(redishost);
-        config.setPort(redisport);
+        log.info("Redis server params: "+redis_host+":"+redis_port);
+        config.setHostName(redis_host);
+        config.setPort(redis_port);
         return config;
     }
 
