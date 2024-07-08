@@ -3,6 +3,7 @@ package com.kosinov.employees.config;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
@@ -19,17 +20,23 @@ public class Config {
     private final String url;
     private final String username;
     private final String password;
+    private final String redishost;
+    private final int redisport;
 
     public Config(
             @Value("${spring.datasource.driver-class-name}") String driver,
             @Value("${spring.datasource.url}") String url,
             @Value("${spring.datasource.username}") String username,
-            @Value("${spring.datasource.password}") String password
+            @Value("${spring.datasource.password}") String password,
+            @Value("${spring.data.redis.host}") String redis_host,
+            @Value("${spring.data.redis.port}") int redis_port
     ) {
         this.driver = driver;
         this.url = url;
         this.username = username;
         this.password = password;
+        this.redishost = redis_host;
+        this.redisport = redis_port;
     }
 
     @Bean
@@ -48,8 +55,16 @@ public class Config {
     }
 
     @Bean
+    public RedisStandaloneConfiguration redisStandaloneConfiguration() {
+        RedisStandaloneConfiguration config = new RedisStandaloneConfiguration();
+        config.setHostName(redishost);
+        config.setPort(redisport);
+        return config;
+    }
+
+    @Bean
     JedisConnectionFactory jedisConnectionFactory() {
-        return new JedisConnectionFactory();
+        return new JedisConnectionFactory(redisStandaloneConfiguration());
     }
 
     @Bean

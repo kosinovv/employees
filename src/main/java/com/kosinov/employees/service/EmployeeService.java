@@ -37,7 +37,7 @@ public class EmployeeService {
     public Employee getEmployee(String tabNum) {
         return findInCacheOrDbByTabNum(tabNum);
     }
-  
+
     public EmployeeDTO findEmployee(String tabNum) {
         Employee findedEmployee = findInCacheOrDbByTabNum(tabNum);
         return employeesMapper.toDto(findedEmployee);
@@ -49,9 +49,9 @@ public class EmployeeService {
         return employeesMapper.toDto(employeeForDelete);
     }
 
-    public EmployeeDTO updateEmployee(EmployeeUpdateDTO employeeUpdateDTO ) {
+    public EmployeeDTO updateEmployee(EmployeeUpdateDTO employeeUpdateDTO) {
         Employee employeeForUpdate = findInCacheOrDbByTabNum(employeeUpdateDTO.getTabNum());
-        employeesMapper.update(employeeUpdateDTO,employeeForUpdate);
+        employeesMapper.update(employeeUpdateDTO, employeeForUpdate);
         employeesRepository.save(employeeForUpdate);
         return employeesMapper.toDto(employeeForUpdate);
     }
