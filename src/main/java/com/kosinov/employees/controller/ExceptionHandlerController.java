@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import static com.kosinov.employees.model.InternalErrorStatus.EMPLOYEE_NOT_FOUND;
 import static com.kosinov.employees.model.InternalErrorStatus.SALARY_PAYMENT_NOT_FOUND;
+
 @RestControllerAdvice
 public class ExceptionHandlerController {
 

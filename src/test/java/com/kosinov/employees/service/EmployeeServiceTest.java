@@ -24,7 +24,6 @@ import static org.mockito.Mockito.*;
 @ContextConfiguration(classes = {
         EmployeeService.class,
         EmployeeMapperImpl.class})
-
 class EmployeeServiceTest {
 
     @Autowired
@@ -47,7 +46,7 @@ class EmployeeServiceTest {
 
 
     @BeforeEach
-    public void setupEmployee(){
+    public void setupEmployee() {
         employeeDTO = new EmployeeDTO();
         employeeDTO.setTabNum("1");
         employeeDTO.setFirstname("Виктор");
@@ -63,7 +62,7 @@ class EmployeeServiceTest {
         employeeUpdateDTO.setLastname("Косинов");
         employeeUpdateDTO.setDepartment("Support 1");
         employeeUpdateDTO.setSalarySum(3000);
-    }    
+    }
 
     @Test
     void createEmployee_test() {

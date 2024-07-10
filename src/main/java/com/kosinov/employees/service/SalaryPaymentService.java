@@ -59,7 +59,7 @@ public class SalaryPaymentService {
 
     public SalaryPaymentFullDTO updateSalary(SalaryPaymentUpdateDTO salaryPaymentUpdateDTO) {
         SalaryPayment salaryForUpdate = findInCacheOrDbByTabNum(salaryPaymentUpdateDTO.getId());
-        salaryPaymentMapper.update(salaryPaymentUpdateDTO,salaryForUpdate);
+        salaryPaymentMapper.update(salaryPaymentUpdateDTO, salaryForUpdate);
         salariesRepository.save(salaryForUpdate);
         return salaryPaymentMapper.toFullDto(salaryForUpdate);
     }
@@ -72,7 +72,7 @@ public class SalaryPaymentService {
         }
 
         SalaryPayment salaryPaymentFromDb = salariesRepository.findById(id)
-            .orElseThrow(() -> new SalaryPaymentNotFound(String.format("Платеж с идентификатором %s не найден", id)));
+                .orElseThrow(() -> new SalaryPaymentNotFound(String.format("Платеж с идентификатором %s не найден", id)));
 
         salaryCachedRepository.save(salaryPaymentFromDb);
         return salaryPaymentFromDb;

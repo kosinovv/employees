@@ -1,16 +1,16 @@
 create table employee
 (
-    id         integer        not null
+    id         integer not null
         constraint employees_pk
             primary key,
-    tab_num    varchar        not null
+    tab_num    varchar not null
         constraint employees_tabnum
             unique,
-    firstname  varchar        not null,
+    firstname  varchar not null,
     secondname varchar,
-    lastname   varchar        not null,
+    lastname   varchar not null,
     department varchar,
-    salary_sum float8 not null
+    salary_sum float8  not null
 );
 
 comment on table employee is 'Персонал';
@@ -34,15 +34,15 @@ COMMENT ON SEQUENCE public.employee_seq
 
 create table salary_payment
 (
-    id           integer        not null
+    id           integer not null
         constraint salary_payment_pk
             primary key,
-    employee_id  integer        not null
+    employee_id  integer not null
         constraint salary_payment_emp
             references employee
             on delete cascade,
-    salary_sum   float8 not null,
-    payment_date date           not null
+    salary_sum   float8  not null,
+    payment_date date    not null
 );
 
 comment on table salary_payment is 'Зарплатные платежи';

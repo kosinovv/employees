@@ -22,17 +22,17 @@ public class SalaryPaymentController {
     }
 
     @GetMapping("find")
-    public SalaryPaymentFullDTO find(@RequestParam(value="id") Integer id) {
+    public SalaryPaymentFullDTO find(@RequestParam(value = "id") Integer id) {
         return salaryPaymentsService.findSalary(id);
     }
 
     @GetMapping("getempsalarysum")
-    public String getempsalarysum(@RequestParam(value="employeeTabNum") String employeeTabNum) {
+    public String getempsalarysum(@RequestParam(value = "employeeTabNum") String employeeTabNum) {
         return salaryPaymentsService.getEmpSalarySum(employeeTabNum);
     }
 
     @DeleteMapping("delete")
-    public SalaryPaymentFullDTO delete(@RequestParam(value="id") Integer id) {
+    public SalaryPaymentFullDTO delete(@RequestParam(value = "id") Integer id) {
         return salaryPaymentsService.deleteSalary(id);
     }
 

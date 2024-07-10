@@ -36,7 +36,7 @@ public class EmployeeControllerTest {
     private Employee employee;
 
     @BeforeEach
-    public void setupEmployee(){
+    public void setupEmployee() {
         employeeDTO = new EmployeeDTO();
         employeeDTO.setTabNum("1");
         employeeDTO.setFirstname("Виктор");
@@ -63,14 +63,13 @@ public class EmployeeControllerTest {
     }
 
     @Test
-    public void createEmployee_test() throws Exception
-    {
+    public void createEmployee_test() throws Exception {
         mvc.perform(MockMvcRequestBuilders
                         .post("/employee/create")
                         .content(asJsonString(employeeDTO))
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
-            .andDo(print())
-            .andExpect(status().isOk());
+                .andDo(print())
+                .andExpect(status().isOk());
     }
 }

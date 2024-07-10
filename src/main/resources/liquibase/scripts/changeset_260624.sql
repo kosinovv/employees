@@ -1,13 +1,13 @@
 create table users
 (
-    id      integer not null
-            constraint users_pk
+    id       integer not null
+        constraint users_pk
             primary key,
     username varchar not null
-               constraint users_username
-               unique,
+        constraint users_username
+            unique,
     password varchar not null,
-    roles varchar not null
+    roles    varchar not null
 );
 
 comment on table users is 'Пользователи';

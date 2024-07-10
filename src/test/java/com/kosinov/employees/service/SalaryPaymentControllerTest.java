@@ -38,6 +38,7 @@ public class SalaryPaymentControllerTest {
 
     @MockBean
     private SalaryPaymentUpdateDTO salaryPaymentUpdateDTO;
+
     @BeforeEach
     public void setupSalaryPayment() throws ParseException {
         salaryPaymentDTO = new SalaryPaymentDTO();
@@ -69,8 +70,7 @@ public class SalaryPaymentControllerTest {
     }
 
     @Test
-    public void createSalaryPayment_test() throws Exception
-    {
+    public void createSalaryPayment_test() throws Exception {
         mvc.perform(MockMvcRequestBuilders
                         .post("/salary/create")
                         .content(asJsonString(salaryPaymentDTO))
